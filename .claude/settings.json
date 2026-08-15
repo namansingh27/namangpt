@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm run *)",
+      "Bash(disown)",
+      "Read(//private/tmp/**)",
+      "Bash(curl -s -X POST http://localhost:3001/api/chat -H \"Content-Type: application/json\" -d '{\"messages\":[{\"role\":\"user\",\"content\":\"What has Naman built?\"}]}')",
+      "Bash(curl -s -o /dev/null -w \"HTTP %{http_code}\\\\n\" http://localhost:3001)",
+      "Bash(tail -40 /tmp/namangpt-dev.log)"
+    ]
+  }
+}
