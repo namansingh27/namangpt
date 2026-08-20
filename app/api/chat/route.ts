@@ -1,6 +1,6 @@
 import Anthropic from "@anthropic-ai/sdk";
 import { retrieve } from "@/lib/retriever";
-import { isOnTopic, OFF_TOPIC_RESPONSE } from "@/lib/guardrails";
+import { isOnTopic, OFF_TOPIC_RESPONSE, PERSONAL_RESPONSE } from "@/lib/guardrails";
 
 export const runtime = "nodejs";
 export const maxDuration = 30;
@@ -151,6 +151,22 @@ export async function POST(req: Request) {
     browser: browser,
     os: os,
   });
+
+  // Personal question check
+  const personalPatterns = [
+    /girlfriend|boyfriend|dating|relationship|married|wife|husband/i,
+    /who is naman'?s ex/i,
+    /salary|income|net worth/i,
+    /where does naman live|home address|phone number/i,
+  ];
+
+  const isPersonal = personalPatterns.some(p => p.test(lastMessage));
+
+  if (isPersonal) {
+    return new Response(PERSONAL_RESPONSE, {
+      headers: { 'Content-Type': 'text/plain' },
+    });
+  }
 
   // Guardrail check
   if (!isOnTopic(lastMessage)) {

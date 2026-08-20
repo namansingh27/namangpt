@@ -20,6 +20,12 @@ const BLOCK_PATTERNS = [
   /politics|election|war|religion|covid|crypto|bitcoin/i,
   /tell me a joke|write a poem|write a story/i,
   /weather|news|sports|stock|price of/i,
+  /who is naman'?s ex/i,
+  /girlfriend|boyfriend|dating|relationship|married|wife|husband|crush|love life|personal life|family|parents|siblings|brother|sister/i,
+  /salary|income|earnings|net worth|how much does naman make/i,
+  /age|how old|date of birth|birthday/i,
+  /address|where does naman live|home address|phone number/i,
+  /religion|caste|race|ethnicity/i,
 ];
 
 export function isOnTopic(query: string): boolean {
@@ -45,3 +51,6 @@ export function isOnTopic(query: string): boolean {
 
 export const OFF_TOPIC_RESPONSE =
   "I'm NamanGPT — I can only answer questions about Naman Singh: his experience, projects, skills, education, and background. Try asking something like *\"What has Naman built?\"* or *\"What is Naman's tech stack?\"*";
+
+export const PERSONAL_RESPONSE =
+  "That's a personal question I'm not able to answer! I can only share Naman's professional background — his projects, experience, skills, and achievements. Try asking something like 'What has Naman built?' or 'Tell me about his work experience'.";
