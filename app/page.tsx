@@ -389,7 +389,7 @@ export default function Home() {
 
   return (
     <div
-      className={`flex flex-col h-screen font-sans transition-colors duration-200 ${
+      className={`flex flex-col h-screen w-full max-w-full overflow-x-hidden font-sans transition-colors duration-200 ${
         D("bg-[#0A0A0A] text-gray-100", "bg-[#FAFAFA] text-gray-900")
       }`}
     >
@@ -713,7 +713,7 @@ export default function Home() {
           </div>
 
           {/* Hint */}
-          <p className={`text-center text-[10px] mt-1.5 ${D("text-gray-700", "text-gray-400")}`}>
+          <p className={`hidden md:block text-center text-[10px] mt-1.5 ${D("text-gray-700", "text-gray-400")}`}>
             Press <kbd className={`px-1 rounded border font-mono text-[9px] ${D("border-gray-700 bg-gray-900 text-gray-500", "border-gray-200 bg-gray-50 text-gray-500")}`}>Enter</kbd> to send
             {" "}·{" "}NamanGPT only answers questions about Naman Singh
           </p>
@@ -722,7 +722,7 @@ export default function Home() {
       </div>
 
       {/* Disclaimer */}
-      <p className="text-xs text-gray-400 text-center py-2">
+      <p className="flex flex-wrap items-center justify-center gap-x-1 px-4 py-2 text-xs text-gray-400 text-center">
         AI-generated responses may not be 100% accurate. For verified information, contact Naman directly.
         {" "}·{" "}
         <Link href="/privacy" className="hover:underline hover:text-gray-300">
