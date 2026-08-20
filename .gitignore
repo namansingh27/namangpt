@@ -45,7 +45,6 @@ yarn-error.log*
 next-env.d.ts
 
 # vector store / logs
-lib/vectorStore.json
 *.log
 
 # claude code local settings

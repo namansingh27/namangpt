@@ -1,5 +1,5 @@
 import Anthropic from "@anthropic-ai/sdk";
-import { retrieve } from "@/lib/supabaseVectorStore";
+import { retrieve } from "@/lib/retriever";
 import { isOnTopic, OFF_TOPIC_RESPONSE } from "@/lib/guardrails";
 
 export const runtime = "nodejs";

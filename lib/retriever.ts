@@ -1,7 +1,7 @@
 import fs from "fs";
-import path from "path";
+import { join } from "path";
 
-const VECTOR_STORE_PATH = path.join(process.cwd(), "lib", "vectorStore.json");
+const VECTOR_STORE_PATH = join(process.cwd(), "lib", "vectorStore.json");
 const TOP_K = 8;
 
 interface Chunk {
