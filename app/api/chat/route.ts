@@ -135,10 +135,11 @@ export async function POST(req: Request) {
     : userAgent.includes('Edge') ? 'Edge'
     : 'Other';
 
-  const os = userAgent.includes('Windows') ? 'Windows'
-    : userAgent.includes('Mac') ? 'Mac'
-    : userAgent.includes('iPhone') ? 'iPhone'
+  const os = userAgent.includes('iPhone') ? 'iPhone'
+    : userAgent.includes('iPad') ? 'iPad'
     : userAgent.includes('Android') ? 'Android'
+    : userAgent.includes('Windows') ? 'Windows'
+    : userAgent.includes('Mac') ? 'Mac'
     : userAgent.includes('Linux') ? 'Linux'
     : 'Other';
 
