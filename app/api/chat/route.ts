@@ -124,6 +124,12 @@ export async function POST(req: Request) {
   const { messages } = await req.json();
   const lastMessage = messages[messages.length - 1]?.content ?? "";
 
+  console.log('USER QUERY:', {
+    message: lastMessage,
+    timestamp: new Date().toISOString(),
+    ip: req.headers.get('x-forwarded-for') || 'unknown'
+  });
+
   // Guardrail check
   if (!isOnTopic(lastMessage)) {
     return new Response(OFF_TOPIC_RESPONSE, {
