@@ -1,10 +1,5 @@
 import { createClient } from "@supabase/supabase-js";
 
-const supabase = createClient(
-  process.env.SUPABASE_URL!,
-  process.env.SUPABASE_ANON_KEY!
-);
-
 interface DocumentRow {
   id: string;
   content: string;
@@ -36,6 +31,11 @@ async function embedQuery(query: string): Promise<number[]> {
 }
 
 export async function retrieve(query: string) {
+  const supabase = createClient(
+    process.env.SUPABASE_URL!,
+    process.env.SUPABASE_ANON_KEY!
+  );
+
   const queryEmbedding = await embedQuery(query);
 
   const { data, error } = await supabase
