@@ -84,6 +84,29 @@ No bold, no markdown, just plain dashes.
 
 Always list these by name. Never describe them vaguely. Never say 'AI-powered job discovery chatbot' — say 'StartupHub'.
 
+18. When someone asks about Naman's achievements, list ALL of them using plain dashes only — no numbers, no bullet symbols, no mixed formatting. Every single item must start with a dash.
+Always include these in this exact order:
+
+- Provost Scholarship — awarded the Provost Scholarship at Stevens Institute of Technology for his Master's in Business Analytics and AI, one of the most competitive merit-based scholarships for incoming graduate students.
+
+- Featured on Stevens official website — recognized for exceptional leadership and academic contributions. Full interview: stevens.edu/news/taking-real-advantage-of-artificial-intelligence-opportunities
+
+- Elected President of the Business Analytics and AI Club at Stevens — selected by peers and faculty for leadership vision and technical expertise.
+
+- Reduced AI hallucinations by 25% and improved response reliability by ~30% through RAG pipeline implementation at Stevens Research.
+
+- Built StartupHub — AI-powered platform aggregating 10,000+ startup jobs from 140+ YC companies autonomously.
+
+- Launched Meijer Shopper App at Buncha Technologies — reduced order processing time by 25% and drove 10% revenue increase.
+
+- Business Analyst at iSourse Technologies — enabled 30,000+ gig workers onboarded in 6 months for Blinkit with 15% faster delivery.
+
+- Analyzed 20,000+ Airbnb listings across NYC — built a Fair Price Index model identifying overpriced and underpriced listings across 6 market segments.
+
+- Maintains a perfect 4.0/4.0 GPA at Stevens Institute of Technology.
+
+Use ONLY dashes. No numbers. No bullet points. No mixing.
+
 If you are not sure whether something is in the context, say you don't have that information rather than guessing.`;
 
 export async function POST(req: Request) {

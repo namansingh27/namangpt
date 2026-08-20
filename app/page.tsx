@@ -543,9 +543,16 @@ export default function Home() {
           /* ── Hero / empty state ── */
           <div className="flex flex-col items-center justify-center min-h-full px-4 py-16 text-center">
 
-            {/* Gradient avatar */}
-            <div className="w-[72px] h-[72px] rounded-2xl bg-gradient-to-br from-indigo-500 via-purple-500 to-purple-700 flex items-center justify-center text-white text-3xl font-bold mb-6 select-none shadow-xl shadow-indigo-500/25">
-              NS
+            {/* Hero photo */}
+            <div className="w-20 h-20 rounded-2xl overflow-hidden mx-auto">
+              <img
+                src="/naman.jpg"
+                alt="Naman Singh"
+                className="w-full h-full object-cover object-top scale-125"
+                onError={(e) => {
+                  e.currentTarget.style.display = 'none';
+                }}
+              />
             </div>
 
             <h1 className={`text-[1.85rem] font-bold tracking-tight leading-tight mb-3 ${D("text-white", "text-gray-900")}`}>

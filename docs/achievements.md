@@ -2,6 +2,33 @@
 
 ---
 
+## Provost Scholarship — Stevens Institute of Technology
+Naman was awarded the Provost Scholarship at Stevens Institute 
+of Technology for his Master's program in Business Analytics 
+and Artificial Intelligence — one of the most competitive 
+merit-based scholarships awarded to incoming graduate students 
+demonstrating exceptional academic potential.
+
+---
+
+## Featured on Stevens Institute of Technology — Official News
+Naman was featured on the official Stevens Institute of 
+Technology website for his exceptional leadership and academic 
+contributions. The feature highlights his work at the 
+intersection of AI, business analytics, and student leadership.
+Read the full interview: https://www.stevens.edu/news/taking-real-advantage-of-artificial-intelligence-opportunities
+
+---
+
+## President — Stevens Business Analytics & AI Club
+Naman was elected President of the Business Analytics and 
+Artificial Intelligence Club at Stevens Institute of 
+Technology — selected by peers and faculty for his leadership 
+vision, technical expertise, and commitment to building a 
+strong analytics and AI community on campus.
+
+---
+
 ## Academic Excellence
 - Maintaining a **perfect 4.0/4.0 GPA** at Stevens Institute of Technology in the Master's program in Business Analytics & Artificial Intelligence — one of the most rigorous graduate programs in the US.
 
