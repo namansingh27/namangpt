@@ -15,19 +15,32 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "NamanGPT — Ask me anything about Naman Singh",
   description:
-    "AI-powered personal portfolio chatbot for Naman Singh. Ask about his projects, experience, skills, and background.",
+    "AI-powered personal portfolio chatbot. Ask about projects, experience, skills, and background.",
+  icons: {
+    icon: "/favicon.ico",
+    apple: "/apple-icon.png",
+  },
   openGraph: {
     title: "NamanGPT — Ask me anything about Naman Singh",
     description:
       "AI-powered personal portfolio chatbot. Ask about projects, experience, skills, and background.",
-    url: "https://namangpt.vercel.app",
+    url: "https://namangpt-one.vercel.app",
     siteName: "NamanGPT",
     type: "website",
+    images: [
+      {
+        url: "/naman.jpg",
+        width: 800,
+        height: 800,
+        alt: "Naman Singh",
+      },
+    ],
   },
   twitter: {
     card: "summary",
     title: "NamanGPT",
     description: "Ask me anything about Naman Singh.",
+    images: ["/naman.jpg"],
   },
 };
 
