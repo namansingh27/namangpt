@@ -124,10 +124,31 @@ export async function POST(req: Request) {
   const { messages } = await req.json();
   const lastMessage = messages[messages.length - 1]?.content ?? "";
 
+  const userAgent = req.headers.get('user-agent') || 'unknown';
+  const isMobile = /mobile|android|iphone|ipad|tablet/i.test(userAgent);
+  const isTablet = /ipad|tablet/i.test(userAgent);
+  const deviceType = isTablet ? 'tablet' : isMobile ? 'mobile' : 'desktop';
+
+  const browser = userAgent.includes('Chrome') ? 'Chrome'
+    : userAgent.includes('Firefox') ? 'Firefox'
+    : userAgent.includes('Safari') ? 'Safari'
+    : userAgent.includes('Edge') ? 'Edge'
+    : 'Other';
+
+  const os = userAgent.includes('Windows') ? 'Windows'
+    : userAgent.includes('Mac') ? 'Mac'
+    : userAgent.includes('iPhone') ? 'iPhone'
+    : userAgent.includes('Android') ? 'Android'
+    : userAgent.includes('Linux') ? 'Linux'
+    : 'Other';
+
   console.log('USER QUERY:', {
     message: lastMessage,
     timestamp: new Date().toISOString(),
-    ip: req.headers.get('x-forwarded-for') || 'unknown'
+    ip: req.headers.get('x-forwarded-for') || 'unknown',
+    device: deviceType,
+    browser: browser,
+    os: os,
   });
 
   // Guardrail check
