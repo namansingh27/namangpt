@@ -13,7 +13,8 @@ import {
 // ─── Types ──────────────────────────────────────────────────────────────────
 
 type Message = { role: "user" | "assistant"; content: string; timestamp: number };
-type Prompt = { text: string; icon: ReactNode };
+type Prompt = { label: string; message: string; icon: ReactNode };
+type Project = { name: string; icon: string; description: string; tech: string; message: string };
 type RecentEntry = { idx: number; content: string; timestamp: number };
 
 const HISTORY_KEY = "namangpt_history";
@@ -168,7 +169,6 @@ function renderMarkdown(raw: string, dark: boolean): string {
 
 const S = { width: 13, height: 13, fill: "none" as const, stroke: "currentColor", strokeWidth: 2, strokeLinecap: "round" as const, strokeLinejoin: "round" as const, viewBox: "0 0 24 24" };
 
-const IconCode     = <svg {...S}><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>;
 const IconBrief    = <svg {...S}><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/></svg>;
 const IconCpu      = <svg {...S}><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><line x1="9" y1="1" x2="9" y2="4"/><line x1="15" y1="1" x2="15" y2="4"/><line x1="9" y1="20" x2="9" y2="23"/><line x1="15" y1="20" x2="15" y2="23"/><line x1="20" y1="9" x2="23" y2="9"/><line x1="20" y1="14" x2="23" y2="14"/><line x1="1" y1="9" x2="4" y2="9"/><line x1="1" y1="14" x2="4" y2="14"/></svg>;
 const IconAward    = <svg {...S}><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg>;
@@ -180,14 +180,53 @@ const IconLinkedIn = <svg width="14" height="14" fill="currentColor" viewBox="0 
 const IconGitHub   = <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>;
 const IconSend     = <svg {...{ ...S, width: 13, height: 13, strokeWidth: 2.5 }}><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>;
 const IconPlus     = <svg {...S}><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>;
+const IconThumbsUp = <svg {...S}><path d="M14 9V5a3 3 0 00-3-3l-4 9v11h11.28a2 2 0 002-1.7l1.38-9a2 2 0 00-2-2.3zM7 22H4a2 2 0 01-2-2v-7a2 2 0 012-2h3"/></svg>;
 
 const PROMPTS: Prompt[] = [
-  { text: "What has Naman built?",              icon: IconCode  },
-  { text: "Tell me about his work experience",  icon: IconBrief },
-  { text: "What is Naman's tech stack?",        icon: IconCpu   },
-  { text: "What are his achievements?",         icon: IconAward },
-  { text: "How can I contact Naman?",           icon: IconMail  },
-  { text: "Tell me about his education",        icon: IconBook  },
+  { label: "Work Experience",  message: "Tell me about his work experience", icon: IconBrief    },
+  { label: "Tech Stack",       message: "What is Naman's tech stack?",       icon: IconCpu      },
+  { label: "Achievements",     message: "What are his achievements?",        icon: IconAward    },
+  { label: "Education",        message: "Tell me about his education",      icon: IconBook     },
+  { label: "Contact",          message: "How can I contact Naman?",          icon: IconMail     },
+  { label: "Recommend Naman?", message: "Should I hire Naman?",              icon: IconThumbsUp },
+];
+
+const PROJECTS: Project[] = [
+  {
+    name: "StartupHub",
+    icon: "🚀",
+    description: "AI-powered startup job discovery — 10,000+ jobs from 140+ YC companies",
+    tech: "Claude API",
+    message: "Tell me about StartupHub",
+  },
+  {
+    name: "Text2SQL Multi-Agent",
+    icon: "🤖",
+    description: "Plain English to SQL queries with results using multi-agent AI",
+    tech: "LangChain",
+    message: "Tell me about the Text2SQL project",
+  },
+  {
+    name: "Career Explorer",
+    icon: "🎯",
+    description: "AI career platform with RAG, ATS optimization, voice interview sim",
+    tech: "RAG",
+    message: "Tell me about Career Explorer",
+  },
+  {
+    name: "Flight Delay Prediction",
+    icon: "✈️",
+    description: "ML model achieving 0.847 ROC-AUC using LightGBM",
+    tech: "LightGBM",
+    message: "Tell me about the Flight Delay Prediction project",
+  },
+  {
+    name: "Airbnb Pricing Analysis",
+    icon: "🏠",
+    description: "Fair Price Index across 20,000+ NYC listings, 6 market segments",
+    tech: "Python",
+    message: "Tell me about the Airbnb pricing project",
+  },
 ];
 
 // Injected once — drives message fade-in and prose styles
@@ -541,10 +580,10 @@ export default function Home() {
 
         {isEmpty ? (
           /* ── Hero / empty state ── */
-          <div className="flex flex-col items-center justify-center min-h-full px-4 py-16 text-center">
+          <div className="flex flex-col items-center min-h-full px-4 py-10 text-center">
 
-            {/* Hero photo */}
-            <div className="w-20 h-20 rounded-2xl overflow-hidden mx-auto">
+            {/* Compact hero */}
+            <div className="w-12 h-12 rounded-full overflow-hidden mb-3">
               <img
                 src="/naman.jpg"
                 alt="Naman Singh"
@@ -555,23 +594,63 @@ export default function Home() {
               />
             </div>
 
-            <h1 className={`text-[1.85rem] font-bold tracking-tight leading-tight mb-3 ${D("text-white", "text-gray-900")}`}>
+            <h1 className={`text-xl font-bold tracking-tight mb-1 ${D("text-white", "text-gray-900")}`}>
               Hi, I&apos;m NamanGPT
             </h1>
-            <p className={`max-w-[22rem] text-sm leading-relaxed mb-2.5 ${D("text-gray-400", "text-gray-500")}`}>
-              I know everything about Naman Singh — his projects, experience,
-              skills, and background. Ask me anything.
-            </p>
-            <p className={`text-xs mb-10 ${D("text-gray-600", "text-gray-400")}`}>
-              Built by Naman Singh
+            <p className={`text-sm mb-8 ${D("text-gray-500", "text-gray-500")}`}>
+              Ask me anything about Naman Singh
             </p>
 
-            {/* Prompt cards */}
+            {/* Project cards */}
+            <div className="w-full max-w-2xl text-left mb-8">
+              <h2 className="text-sm font-medium text-gray-400 uppercase tracking-wide mb-3">
+                Projects
+              </h2>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {PROJECTS.map((proj) => (
+                  <div
+                    key={proj.name}
+                    className={`flex flex-col p-4 rounded-xl border shadow-sm transition-all duration-150 hover:-translate-y-0.5 ${
+                      D("bg-gray-900 border-gray-800 hover:shadow-lg hover:shadow-black/30 hover:border-indigo-800",
+                        "bg-white border-gray-100 hover:shadow-md hover:shadow-gray-200/80 hover:border-indigo-300")
+                    }`}
+                  >
+                    <div className="text-xl mb-2 leading-none">{proj.icon}</div>
+                    <div className={`text-sm font-semibold mb-1 ${D("text-gray-100", "text-gray-900")}`}>
+                      {proj.name}
+                    </div>
+                    <div className={`text-xs mb-3 truncate ${D("text-gray-400", "text-gray-500")}`}>
+                      {proj.description}
+                    </div>
+                    <div className="mt-auto flex items-center justify-between gap-2">
+                      <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${
+                        D("bg-indigo-950/50 text-indigo-300", "bg-indigo-50 text-indigo-600")
+                      }`}>
+                        {proj.tech}
+                      </span>
+                      <button
+                        onClick={() => sendMessage(proj.message)}
+                        className={`text-xs font-medium transition-colors ${
+                          D("text-indigo-400 hover:text-indigo-300", "text-indigo-600 hover:text-indigo-700")
+                        }`}
+                      >
+                        Ask me →
+                      </button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Divider */}
+            <div className={`w-full max-w-2xl border-t mb-6 ${D("border-gray-800", "border-gray-200")}`} />
+
+            {/* Prompt chips */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 w-full max-w-[30rem]">
               {PROMPTS.map((p) => (
                 <button
-                  key={p.text}
-                  onClick={() => sendMessage(p.text)}
+                  key={p.label}
+                  onClick={() => sendMessage(p.message)}
                   style={{ borderLeftWidth: "3px", borderLeftColor: "#6366f1" }}
                   className={`flex items-center gap-3 px-4 py-3 rounded-xl border text-left text-sm transition-all duration-150 hover:-translate-y-0.5 ${
                     D("bg-[#111111] border-gray-800 text-gray-300 hover:shadow-lg hover:shadow-black/30",
@@ -581,7 +660,7 @@ export default function Home() {
                   <span className={`flex-none ${D("text-indigo-400", "text-indigo-500")}`}>
                     {p.icon}
                   </span>
-                  <span className="leading-snug">{p.text}</span>
+                  <span className="leading-snug">{p.label}</span>
                 </button>
               ))}
             </div>
