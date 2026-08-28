@@ -7,13 +7,12 @@ import {
   useEffect,
   useCallback,
   KeyboardEvent,
-  ReactNode,
 } from "react";
 
 // ─── Types ──────────────────────────────────────────────────────────────────
 
 type Message = { role: "user" | "assistant"; content: string; timestamp: number };
-type Prompt = { label: string; message: string; icon: ReactNode };
+type Prompt = { label: string; message: string };
 type Project = { name: string; icon: string; description: string; tech: string; message: string };
 type RecentEntry = { idx: number; content: string; timestamp: number };
 
@@ -169,26 +168,22 @@ function renderMarkdown(raw: string, dark: boolean): string {
 
 const S = { width: 13, height: 13, fill: "none" as const, stroke: "currentColor", strokeWidth: 2, strokeLinecap: "round" as const, strokeLinejoin: "round" as const, viewBox: "0 0 24 24" };
 
-const IconBrief    = <svg {...S}><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/></svg>;
-const IconCpu      = <svg {...S}><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><line x1="9" y1="1" x2="9" y2="4"/><line x1="15" y1="1" x2="15" y2="4"/><line x1="9" y1="20" x2="9" y2="23"/><line x1="15" y1="20" x2="15" y2="23"/><line x1="20" y1="9" x2="23" y2="9"/><line x1="20" y1="14" x2="23" y2="14"/><line x1="1" y1="9" x2="4" y2="9"/><line x1="1" y1="14" x2="4" y2="14"/></svg>;
-const IconAward    = <svg {...S}><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg>;
 const IconMail     = <svg {...S}><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>;
-const IconBook     = <svg {...S}><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>;
 const IconSun      = <svg {...S}><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>;
 const IconMoon     = <svg {...S}><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>;
 const IconLinkedIn = <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>;
 const IconGitHub   = <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>;
 const IconSend     = <svg {...{ ...S, width: 13, height: 13, strokeWidth: 2.5 }}><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>;
 const IconPlus     = <svg {...S}><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>;
-const IconThumbsUp = <svg {...S}><path d="M14 9V5a3 3 0 00-3-3l-4 9v11h11.28a2 2 0 002-1.7l1.38-9a2 2 0 00-2-2.3zM7 22H4a2 2 0 01-2-2v-7a2 2 0 012-2h3"/></svg>;
 
 const PROMPTS: Prompt[] = [
-  { label: "Work Experience",  message: "Tell me about his work experience", icon: IconBrief    },
-  { label: "Tech Stack",       message: "What is Naman's tech stack?",       icon: IconCpu      },
-  { label: "Achievements",     message: "What are his achievements?",        icon: IconAward    },
-  { label: "Education",        message: "Tell me about his education",      icon: IconBook     },
-  { label: "Contact",          message: "How can I contact Naman?",          icon: IconMail     },
-  { label: "Recommend Naman?", message: "Should I hire Naman?",              icon: IconThumbsUp },
+  { label: "Work Experience",  message: "Tell me about his work experience" },
+  { label: "Tech Stack",       message: "What is Naman's tech stack?" },
+  { label: "Achievements",     message: "What are his achievements?" },
+  { label: "Education",        message: "Tell me about his education" },
+  { label: "Contact",          message: "How can I contact Naman?" },
+  { label: "Leadership & Clubs", message: "Tell me about Naman's leadership and club activities" },
+  { label: "Recommend Naman?", message: "Should I hire Naman?" },
 ];
 
 const PROJECTS: Project[] = [
@@ -203,7 +198,7 @@ const PROJECTS: Project[] = [
     name: "Text2SQL Multi-Agent",
     icon: "🤖",
     description: "Plain English to SQL queries with results using multi-agent AI",
-    tech: "LangChain",
+    tech: "Multi-Agent",
     message: "Tell me about the Text2SQL project",
   },
   {
@@ -226,6 +221,13 @@ const PROJECTS: Project[] = [
     description: "Fair Price Index across 20,000+ NYC listings, 6 market segments",
     tech: "Python",
     message: "Tell me about the Airbnb pricing project",
+  },
+  {
+    name: "NamanGPT",
+    icon: "💬",
+    description: "AI-powered personal portfolio chatbot — ask anything about Naman using RAG + Claude API",
+    tech: "RAG + Claude",
+    message: "Tell me about NamanGPT — how did you build it?",
   },
 ];
 
@@ -580,7 +582,7 @@ export default function Home() {
 
         {isEmpty ? (
           /* ── Hero / empty state ── */
-          <div className="flex flex-col items-center min-h-full px-4 py-10 text-center">
+          <div className="flex flex-col items-center min-h-full px-4 py-6 text-center">
 
             {/* Compact hero */}
             <div className="w-12 h-12 rounded-full overflow-hidden mb-3">
@@ -597,12 +599,12 @@ export default function Home() {
             <h1 className={`text-xl font-bold tracking-tight mb-1 ${D("text-white", "text-gray-900")}`}>
               Hi, I&apos;m NamanGPT
             </h1>
-            <p className={`text-sm mb-8 ${D("text-gray-500", "text-gray-500")}`}>
+            <p className={`text-sm mb-4 ${D("text-gray-500", "text-gray-500")}`}>
               Ask me anything about Naman Singh
             </p>
 
             {/* Project cards */}
-            <div className="w-full max-w-2xl text-left mb-8">
+            <div className="w-full max-w-2xl text-left mb-4">
               <h2 className="text-sm font-medium text-gray-400 uppercase tracking-wide mb-3">
                 Projects
               </h2>
@@ -610,7 +612,7 @@ export default function Home() {
                 {PROJECTS.map((proj) => (
                   <div
                     key={proj.name}
-                    className={`flex flex-col p-4 rounded-xl border shadow-sm transition-all duration-150 hover:-translate-y-0.5 ${
+                    className={`flex flex-col p-3 rounded-xl border shadow-sm transition-all duration-150 hover:-translate-y-0.5 ${
                       D("bg-gray-900 border-gray-800 hover:shadow-lg hover:shadow-black/30 hover:border-indigo-800",
                         "bg-white border-gray-100 hover:shadow-md hover:shadow-gray-200/80 hover:border-indigo-300")
                     }`}
@@ -643,24 +645,26 @@ export default function Home() {
             </div>
 
             {/* Divider */}
-            <div className={`w-full max-w-2xl border-t mb-6 ${D("border-gray-800", "border-gray-200")}`} />
+            <div className="flex items-center gap-3 w-full max-w-2xl" style={{ margin: "16px 0" }}>
+              <div className={`flex-1 h-px ${D("bg-gray-800", "bg-gray-200")}`} />
+              <span className={`text-[11px] font-medium uppercase tracking-wide ${D("text-gray-500", "text-gray-400")}`}>
+                Or ask about
+              </span>
+              <div className={`flex-1 h-px ${D("bg-gray-800", "bg-gray-200")}`} />
+            </div>
 
-            {/* Prompt chips */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 w-full max-w-[30rem]">
+            {/* Prompt pills */}
+            <div className="flex flex-wrap gap-2 justify-center w-full max-w-2xl">
               {PROMPTS.map((p) => (
                 <button
                   key={p.label}
                   onClick={() => sendMessage(p.message)}
-                  style={{ borderLeftWidth: "3px", borderLeftColor: "#6366f1" }}
-                  className={`flex items-center gap-3 px-4 py-3 rounded-xl border text-left text-sm transition-all duration-150 hover:-translate-y-0.5 ${
-                    D("bg-[#111111] border-gray-800 text-gray-300 hover:shadow-lg hover:shadow-black/30",
-                      "bg-white border-gray-100 text-gray-700 hover:shadow-md hover:shadow-gray-200/80")
+                  className={`px-4 py-2 rounded-full border text-xs transition-colors duration-150 ${
+                    D("border-gray-700 text-gray-400 hover:bg-gray-800 hover:border-indigo-300",
+                      "border-gray-200 text-gray-600 hover:bg-gray-100 hover:border-indigo-300")
                   }`}
                 >
-                  <span className={`flex-none ${D("text-indigo-400", "text-indigo-500")}`}>
-                    {p.icon}
-                  </span>
-                  <span className="leading-snug">{p.label}</span>
+                  {p.label}
                 </button>
               ))}
             </div>

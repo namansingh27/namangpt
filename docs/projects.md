@@ -139,3 +139,49 @@ Designed and built the complete multi-agent architecture. Implemented prompt eng
 - Enabled non-technical users to query databases using plain English
 - Demonstrated practical application of multi-agent AI systems
 - Showcased expertise in prompt engineering, structured output, tool calling, and multi-step AI pipelines
+
+---
+
+## Project 6: NamanGPT — AI-Powered Personal Portfolio Chatbot
+
+**Type:** Personal Side Project — Full Stack AI Application
+**Role:** Solo Designer & Developer (built independently)
+**Tech Stack:** Next.js 16, React, TypeScript, Tailwind CSS, Claude API (claude-sonnet-4-5), Voyage AI (voyage-3-lite), Supabase pgvector, RAG Pipeline (custom built), Vercel (deployment)
+**Live:** namangpt-one.vercel.app
+**GitHub:** github.com/namansingh27/namangpt
+
+### What It Does
+NamanGPT is a conversational AI portfolio chatbot that lets anyone — recruiters, collaborators, or curious visitors — ask natural language questions about Naman Singh and get instant, accurate, grounded answers. Instead of scrolling through a static resume, users can have a conversation with Naman's portfolio.
+
+### Problem It Solved
+Traditional portfolios are passive — visitors scroll, skim, and leave. NamanGPT makes the portfolio interactive and conversational, letting recruiters ask exactly what they want to know in their own words.
+
+### How It Works
+NamanGPT uses a custom RAG (Retrieval-Augmented Generation) pipeline:
+- 9 markdown knowledge documents covering resume, projects, experience, skills, achievements, education, leadership, and contact info
+- Documents are chunked into 58 pieces and embedded using Voyage AI voyage-3-lite model
+- User questions are embedded and compared against all 58 chunks using cosine similarity search
+- Top 5 most relevant chunks are injected into Claude's context window
+- Claude generates a grounded response using only the retrieved context — no hallucination
+
+### Key Features
+- Project cards on home screen for visual browsing
+- RAG pipeline with 58 chunks across 9 knowledge docs
+- 3-layer guardrail system blocking off-topic questions
+- Streaming responses using Anthropic SDK native streaming
+- Dark and light mode with localStorage persistence
+- Recents sidebar with session history
+- Resume download button
+- Mobile responsive design
+- Rate limiting (20 requests/hour per IP)
+- Privacy policy page
+- Deployed on Vercel with Supabase pgvector vector store
+
+### Naman's Role
+Designed and built the entire system from scratch — knowledge base creation, RAG pipeline, guardrails, streaming API, and chat UI. Made all architecture decisions including embedding model selection, chunking strategy, similarity search implementation, and deployment setup.
+
+### Outcome & Impact
+- Live at namangpt-one.vercel.app
+- Featured on LinkedIn, shared with Stevens faculty
+- Received positive feedback from chairperson of analytics at Stevens Institute of Technology
+- Demonstrates practical application of RAG, LLMs, prompt engineering, and full-stack AI development

@@ -95,6 +95,12 @@ CBSE Board (10th & 12th)
 - Specialized agents handle intent parsing, schema mapping, SQL generation, execution, and response formatting
 - Stack: Python, Claude API, LangChain, structured output, tool calling, React/Vite, Node.js/Express
 
+### NamanGPT — AI-Powered Personal Portfolio Chatbot
+- Built a conversational AI portfolio using RAG pipeline, Claude API, and Voyage AI embeddings — live at namangpt-one.vercel.app
+- Custom RAG pipeline: 9 docs, 58 chunks, cosine similarity search, top-5 retrieval, streaming responses
+- 3-layer guardrail system, Supabase pgvector, rate limiting, dark/light mode, mobile responsive
+- Stack: Next.js, TypeScript, Claude API, Voyage AI, Supabase, Tailwind CSS, Vercel
+
 ---
 
 ## Skills
