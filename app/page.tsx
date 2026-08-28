@@ -282,6 +282,26 @@ export default function Home() {
     if (localStorage.getItem("namangpt-theme") === "dark") setIsDark(true);
   }, []);
 
+  // Mark the home screen as the initial history entry, so the first
+  // back-button press has a "home" state to land on.
+  useEffect(() => {
+    window.history.replaceState({ page: "home" }, "", "");
+  }, []);
+
+  // Back button while in chat returns to the home screen instead of
+  // navigating away from the site.
+  useEffect(() => {
+    const handlePopState = () => {
+      if (messages.length > 0) {
+        setMessages([]);
+        window.history.pushState({ page: "home" }, "", "");
+      }
+    };
+
+    window.addEventListener("popstate", handlePopState);
+    return () => window.removeEventListener("popstate", handlePopState);
+  }, [messages]);
+
   // Load past conversation history for the Recents sidebar only — the
   // active chat always starts fresh on page load and is never restored.
   useEffect(() => {
@@ -328,6 +348,12 @@ export default function Home() {
     async (text: string) => {
       const trimmed = text.trim();
       if (!trimmed || loading) return;
+
+      // Entering chat from the empty state — push a history entry so the
+      // browser back button returns to the home screen instead of leaving.
+      if (messages.length === 0) {
+        window.history.pushState({ page: "chat" }, "", "");
+      }
 
       const msgs: Message[] = [...messages, { role: "user", content: trimmed, timestamp: Date.now() }];
       setMessages(msgs);
